@@ -43,10 +43,5 @@ namespace AtletKg.Model
                 }
             }
         }
-
-        //public List<Clothes> GetClothes(string name) 
-        //{
-            
-        //}
     }
 }
