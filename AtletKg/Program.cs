@@ -19,7 +19,7 @@ namespace AtletKg
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            FileCSV.Create();
+            FileCSV.Create("Продано ", "Название;Размер;Цена закупки;Цена продажи;");
             var c1 = new Clothes();
             c1.Name = "Nike";
             c1.Price = 12312;
@@ -51,7 +51,9 @@ namespace AtletKg
             c5.Size = "XXX";
             FileCSV.AddClothes(c5);
 
-            ///Application.Run(new MainWindow());
+            var sd = FileCSV.GetClothes();
+
+            Application.Run(new MainWindow());
         }
     }
 }

@@ -1,28 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AtletKg.Model
 {
     public static class FileCSV
     {
-        static string fileName = "Отчёт " + DateTime.Now.ToString("dd MMMM yyyy");
-
-        public static void Create()
+        static string fileName = DateTime.Now.ToString("dd MMMM yyyy") + ".csv";
+        static string nameFolder = "Data\\Report";
+        public static void Create(string nameFile, string mainString)
         {
-            FileHelper.Create(fileName, "Data", ".csv");
-            FileHelper.Write(fileName, "Название;");
-            FileHelper.Write(fileName, "Размер;");
-            FileHelper.Write(fileName, "Цена закупки;");
-            FileHelper.Write(fileName, "Цена продажи;");
+            fileName = nameFile + fileName;
+            FileHelper.Create(fileName, nameFolder);
+            FileHelper.WriteLine(nameFolder, fileName, mainString);
         }
 
         public static void AddClothes(Clothes clothes)
         {
-            FileHelper.Write(fileName, "\n"+clothes.Name + ";");
-            FileHelper.Write(fileName, clothes.Size + ";");
-            FileHelper.Write(fileName, clothes.Price + ";");
-            FileHelper.Write(fileName, clothes.SellingPrice + ";");
+            FileHelper.WriteLine(nameFolder, fileName, clothes.ToString());
+        }
+
+        public static List<Clothes> GetClothes()
+        {
+            var report = FileHelper.ReadLine(nameFolder, fileName);
+            var result = new List<Clothes>();
+            foreach (var line in report.Skip(1))
+            {
+                result.Add(Clothes.Parse(line)) ;
+            }
+            return result;
         }
     }
 }
